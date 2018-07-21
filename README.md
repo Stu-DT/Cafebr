@@ -8,5 +8,4 @@ is an HTML/JavaScript document, and this is also available at
 or
 #### http://studtsugama.s1006.xrea.com/cafebr/cafebr.xhtm
 ##### Cafebrman.html
-(also available at http://lab.agr.hokudai.ac.jp/botagr/sakusei/cafebrman.html or http://studtsugama.s1006.xrea.com/cafebr/cafebrman.xhtm)
-shows how to use them.
+shows how to use them (this is also available at http://lab.agr.hokudai.ac.jp/botagr/sakusei/cafebrman.html or http://studtsugama.s1006.xrea.com/cafebr/cafebrman.xhtm).
