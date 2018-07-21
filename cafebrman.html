@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css;" />
+	<title>CafebrMan -- Cafebr Manual</title>
+	<link rel="shortcut icon" href="cbicon.ico">
+</head>
+
+<body style="font-family: arial, sans-serif;">
+
+<img src="cblogo.png" style="float:left; width:80px; height: 100px; margin-right: 15px; margin-top: -15px;">
+<h1 style="line-height:1.2;margin-bottom:30px;">CafebrMan<br> <span style="font-size: 75%;">-- Manual for Citation Amender/Formatter for Biological Research</span></h1>
+<span style="line-height:1.4;font-size:88%;">(c) 2018 Daisuke Tsugama<br>This program uses the PubMed search engine (https://www.ncbi.nlm.nih.gov/pubmed/),<br> managed by The United States National Library of Medicine (NLM) at the National Institutes of Health (NIH)</span><br>===========================================================================================
+<div id="contents">
+<h2 style="margin-bottom:0px;margin-top:10px;">Contents</h2>
+<ol style="margin-left:10px;margin-top:10px;line-height:1.6;font-size: 120%;">
+	<li><a href="#introduction">Introduction</a></li>
+	<li>Methods to collect paper information
+		<ol style="list-style-type:lower-latin;">
+			<li><a href="#default">Default mode</a> (in the absence of a following option)</li>
+			<li><a href="#browse">DB browsing option (--browse, -b)</a></li>
+			<li><a href="#search">PubMed search option (--search, -s)</a></li>
+			<li><a href="#xmlcorr">PubMed XML information correction option (--xmlcorr, -x)</a></li>
+			<li><a href="#abscorr">PubMed abstract text correction option (--abscorr, -a)</a></li>
+			<li><a href="#delimit">Delimiter designation option (--delimit, -d)</a></li>
+		</ol>
+	</li>
+	<li style="padding-top:8px;"><a href="#fldfmt">Field formatting option (--fldfmt, -f)</a></li>
+	<li><a href="#ordering">Output ordering option (--order, -o)</a></li>
+	<li><a href="#examples">Examples of use</a></li>
+	<li><a href="#guihelps">Point-by-point helps for the GUI version</a></li>
+</ol>
+</div>
+===========================================================================================
+<div id="introduction">
+<h2 style="margin-bottom:15px;margin-top:20px;">1. Introduction</h2>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Cafebr (Citation Amender/Formatter for Biological Research) is a tool to generate a reference list in a preferred format.</li>
+<li style="margin-top:5px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Cafebr was originally developed as a command-line program written in Perl (cafebr.pl). Many of its functions were later copied to a GUI program written in HTML5 and JavaScript (cafebr.html). All functions of the GUI version are available in its <a href="cafebr.html">online version</a>. This online version also offers links to download stand-alone (command-line and GUI) versions of Cafebr.</li>
+<li style="margin-top:5px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">The command-line version works at least on Ubuntu 16.04 LTS with Perl v5.22.1 and Windows 10 Home version 1709 with ActivePerl (from ActiveState, https://www.activestate.com/activeper, for Perl v5.24.3) installed. Under such a Perl environment, Cafebr can be executed by moving to the directory where the cafebr file is present at the command line and typing</li>
+<li style="margin-top:5px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><b>perl cafebr.pl [options and arguments]</b></li>
+<li style="margin-top:5px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">For Ubuntu, making the cafebr.pl file executable (often by the chmod command) may be necessary.<br>On Ubuntu, if 'PATH="$PATH:[path to the cafebr.pl directory]"' is added to the end of the ~/.profile file, it can be executed in any directory by typing "<b>cafebr.pl [options and arguments]</b>".</li>
+<li style="margin-top:5px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">The GUI version works at least on Firefox (<a href="https://www.mozilla.org/ja/firefox/new/">https://www.mozilla.org/ja/firefox/new/</a>), Google Chrome (<a href="https://www.google.co.jp/chrome/index.html">https://www.google.co.jp/chrome/index.html</a>) and Microsoft Edge (<a href="https://www.microsoft.com/ja-jp/windows/microsoft-edge">https://www.microsoft.com/ja-jp/windows/microsoft-edge</a>).</li>
+<li style="margin-top:20px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Cafebr tries to</li>
+<li style="margin-top:2px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><b>(i) collect necessary information from either PubMed or given references</b>, and</li>
+<li style="margin-top:2px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><b>(ii) output it in a preferred format</b> (in the standard output).</li>
+<li style="margin-top:20px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">For the step i, by default, Cafebr tries to do so using a given reference file.<br>To collect more precise information, following optons are also available.</li>
+<ul style="margin-bottom:0px;margin-top:10px;margin-left:20px;font-size: 110%;list-style-type:disc;line-height:1.4;">
+	<li><b>--browse, -b</b>: DB browsing option (*no argument is taken)</li>
+	<li><b>--search, -s</b>: PubMed search option (*no argument is taken)</li>
+	<li><b>--xmlcorr, -x</b>: PubMed XML information correction option (*no argument is taken)</li>
+	<li><b>--abscorr, -a</b>: PubMed abstract text correction option (*no argument is taken)</li>
+	<li><b>--delimit, -d</b>: Delimiter designation option (*no argument is taken)</li>
+</ul>
+<li style="margin-top:20px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">For the step ii, following optons are available.</li>
+<ul style="margin-bottom:0px;margin-top:10px;margin-left:20px;font-size: 110%;list-style-type:disc;line-height:1.4;">
+	<li><b>--fldfmt, -f [argument]</b>: Field formatting option</li>
+	<li><b>--order, -o [argument]</b>: Output ordering option</li>
+</ul>
+<li style="margin-top:20px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Following optons are also available for possible convenience.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">How they work is described in the following sections.</li>
+<li style="margin-bottom:10px;margin-top:20px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+======================================================================================
+<h2 style="margin-bottom:25px;margin-top:20px;">2. Methods to collect paper information</h2>
+<div id="default">
+<h3 style="margin-bottom:15px;margin-left:30px;font-size:125%">a. Default mode (*only for the command-line version)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Cafebr first tries to open a file given in the path as the first argument. If Cafebr can open a file ("reference file") in the absence of the option -b, -s, -x, -a or -d, it regards each line as a record of a paper, and tries to output them in format designated by the option -f (see the section 3). For output formats other than 'raw' or 'unchange', Cafebr tries to extract the following pieces of information from each record:</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Authors, Article Title, Publication Year, Journal, Volume, Issue, Pages, PubMed ID (PMID), PubMed Central ID (PMCID), and DOI.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">To do this, Cafebr uses a journal name list ("jlist.txt") and a species name list ("slist.txt"). Both of these files were prepared from all relevant records in PubMed, and are present in the same directory as the cafebr execution file.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Cafebr regards the words starting with 'JournalTitle: ', 'MedAbbr: ' or 'IsoAbbr: ' in each line of "jlist.txt" as a journal name, and deposits all the journal names. It regards words in each line of "jlist.txt" as a name of species, and deposits all the species names as well. Adding and removing some journal names and species names to and from "jlist.txt" and "slist.txt" may improve output results.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When Cafebr finds neither a reference file nor a manuscript file (see the section 4 for the output ordering option), it asks whether the option -s, -x, -a or -d should be activated.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The GUI version of Cafebr does not support this function.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+<span style="margin-left:30px;">-------------------------------------------------------------------------------</span>
+<div id="browse">
+<h3 style="margin-bottom:15px;margin-left:30px;font-size:125%">b. DB browsing option (--browse, -b)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The DB browsing option is designed to read and display data in the <b>Cafebr DB format</b>, which consists of the following tab-delimited fields:</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><b>Authors</b> [tab] <b>Article Title</b> [tab] <b>Publication Year</b> [tab] <b>Journal</b> [tab] <b>Volume</b> [tab] <b>Issue</b> [tab] <b>Pages</b> [tab] <b>PubMed ID (PMID)</b> [tab] <b>PubMed Central ID (PMCID)</b> [tab] <b>DOI</b> [tab] <b>Attributes</b> [tab] <b>Author Information</b></li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When this option is selected, input data are interpreted accordingly, and information needed for output is automatically collected.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+<span style="margin-left:30px;">-------------------------------------------------------------------------------</span>
+<div id="search">
+<h3 style="margin-top:15px;margin-bottom:15px;margin-left:30px;font-size:125%">c. PubMed search option (--search, -s)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When the option -s is selected, Cafebr searches PubMed for given keywords. Hit records of papers are used for final output.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">If Cafebr can open a reference file, it tries to find PMID, PMCID, and then DOI in each line, using 'pmid', 'pmc', and 'doi' (case-insensitive) as search keys. If any of them is available, it is submitted as a query key to PubMed.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">If none of them is available, Cafebr generates a query key from each line by replacing all the characters other than the word characters (those in the regular expression "\w") with '+'. The resulting query key is then submitted to PubMed.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When Cafebr finds neither a reference file nor a manuscript file, it asks to give a line of keywords to the standard input. When either 'M' or 'm' is given at this point, Cafebr becomes able to take multiple lines of keywords. One line of words is used as one query in this case.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When a query key has only one hit, Cafebr automatically uses it for final output. This behavior can be changed by the option -i (see the section 5). If a query has multiple hits, Cafebr asks what to do. Navigation messages appear in this case.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The maximum number of hits is limited to 20 for the command-line version of Cafebr in order not to overload the NIH server. If 20 hits are present, it asks if more records should be fetched. Navigation messages appear again in this case.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Records of papers are fetched as the XML format, and the following pieces of information for final output are extracted from each record:<br>Authors, Article Title, Publication Year and Date, Journal, Volume, Issue, Pages, Abstract, Author Affiliation, PMID, PMCID, DOI, Attributes (Erratum, Comment, etc.).</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+<span style="margin-left:30px;">-------------------------------------------------------------------------------</span>
+<div id="xmlcorr">
+<h3 style="margin-top:15px;margin-bottom:15px;margin-left:30px;font-size:125%">d. PubMed XML information correction option (--xmlcorr, -x)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When the option -x ("PubMed XML correction" on the GUI version) is selected, Cafebr regards input references as PubMed XML-formatted. Multiple records of papers in the input are automatically split, and information for output is collected from each record.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">For the command-line version of Cafebr, if it cannot find a reference file, it asks to give PubMed XML-formatted paper information to the standard input. The input can contain multiple records in this case as well.<br>For the GUI version, the PubMed XML-formated texts should be given to the text area for the step "2. Give and edit input references. They will then be separated into records and fields when the button "Use the above for step 3" is clicked.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+<span style="margin-left:30px;">-------------------------------------------------------------------------------</span>
+<div id="abscorr">
+<h3 style="margin-top:15px;margin-bottom:15px;margin-left:30px;font-size:125%">e. PubMed abstract text correction option (--abscorr, -a)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When the option -a ("PubMed abstract correction" on the GUI version) is selected, Cafebr regards input references as PubMed abstract text-formatted. Multiple records of papers in the input are automatically split, and information for output is collected from each record.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">For the command-line version of Cafebr, if it cannot find a reference file, it asks to give PubMed abstract text-formatted paper information to the standard input. The input can contain multiple records in this case as well. <br>For the GUI version, the PubMed abstract-formated texts should be given to the text area for the step 2. They will then be separated into records and fields when the button "Use the above for step 3" is clicked.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Both the -x and -a options allow Cafebr to correctly collect necessary information, but the -x option may return better results in some cases.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+<span style="margin-left:30px;">-------------------------------------------------------------------------------</span>
+<div id="delimit">
+<h3 style="margin-top:15px;margin-bottom:15px;margin-left:30px;font-size:125%">f. Delimiter designation option (--delimit, -d)</h3>
+<li style="margin-top:0px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">When the option -d ("Delimiter" on the GUI version) is selected, Cafebr asks delimiters that can split input references into records (each corresonding to one paper) and fields (corresponding to authors, title, etc.). Carriage returns and line feeds ("[\r\n]+" in regular expression) are used as the default record delimiter. Field delimiters are not defined by default, thus need to be input.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The record delimiter can be designated by either <b>RS='[delimiter]'</b> or <b>RS='[delimiter]'=REX</b>. The former uses characters in [delimiter] per se, whereas the latter uses them as regular expression.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Field delimiters can be designated by either <b>FS='[comma-delimited characters]' (=REX)</b> or <b>F1[delimiter]F2[delimiter]F3[delimiter] ... (=REX)</b>. In the former pattern, the comma-delimited characters are used as field delimiters, whereas in the latter pattern, characters between F1, F2, F3 ... ('F' and digits) are used as field delimiters. In either case, on the command-line version, the delimiters are used as regular expression if '=REX' is present. Use of regular expression for field delimiters is not allowed in the GUI version.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The prefix for F1, F2, F3 ... (i.e., 'F') can be changed by inputting <b>PF='[prefix]'</b>.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">As the input format, <b>!FJ, !FJ1, !FJ2, ... (prefix '!FJ' with or without digits)</b> can be used as journal name fields. When Cafebr finds such a pattern, it tries to associate the corresponding field key with a journal name in the journal name list, which is present either as the file "jlist.txt" for the command-line version or a part of the HTML/JavaScript file for the GUI version (see the section 2a). The prefix '!FJ' cannot be changed.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">After setting delimiters, Cafebr asks how to organize obtained fields (output format), if no preset format is selected by the -f option (see the section 3). It is possible to choose a preset format at this point. Alternatively, the output format can be designated by <b>F1[delimiter]F2[delimiter]F3[delimiter] ...</b></li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">By default, the command-line version of Cafebr regards the patterns F2, F5, ... as names of fields, and does not care the order of them. This means that a "prefix + digits" pattern in the output format works only when that pattern has been present in the input format. This befavior can be changed by adding <b>'=NUM'</b> at the end of the output format. In this case, F1, F2, F3, ... correspond to the first field, second, third, ... in the input. If '=NUM' is present in the output format, the prefix can be changed by <b>PF='[prefix]'</b>.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">Example:<br>The input<br><b>Tsugama (2014) Diceman. PA, USA; Mike (2018) a nice man. Hokkaido, Japan</b><br>is output as<br><b>In PA (USA) in 2014, Tsugama was called Diceman.<br>In Hokkaido (Japan) in 2018, Mike was called a nice man.</b><br>if the input format is<br><b>P1 (P2) P3. P4, P5 RS=';' PF='P'</b><br>and the output format is<br><b>In F4 (F5) in F2, F1 was called F3. =NUM PF='F'</b><br>In this case, both of the following output formats<br><b>In P4 (P5) in P2, P1 was called P3. =NUM</b> and<br><b>In P4 (P5) in P2, P1 was called P3.</b><br>return the same result.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">If a preset output format is selected, Cafebr asks which fields correspond to Author, Article Title, Publication Year, etc. Fields for these pieces of information should be indicated by the order of the field (1, 2, 3, ...) rather than F1, F2, F3, ..., in this case.</li>
+<li style="margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;">The GUI version of Cafebr asks delimiters and fields containing specific information (Author, Article Title, etc.), according to the formatting and/or the ordering option selected.<br>It behaves a little differently from the command-line version: The GUI version does not support the use of "=REX" for field separaters (it does allow "=REX" for the record separator); the GUI version always uses "=NUM" to organize fields for output.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:55px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+=======================================================================================
+<div id="fldfmt">
+<h2 style="margin-bottom:15px;margin-top:15px;">3. Field formatting option (--fldfmt, -f)</h2>
+<li style="margin-top:0px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">A preset format for output can be designated by the option -f with an argument. If the argument matches one of the preset formats, that format is used for output. Arguments fir the formatting option for the command-line version are:</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><b>'all', 'DB', 'default', 'smode', 'hokudai', 'lcp', 'febs', 'npg', 'abstracts', 'raw', 'unchanged', 'custom', and 'own'</b> (given below are examples</a>)</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Some of these formatting methods are not supported by the GUI version of Cafebr.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">The GUI version of Cafebr displays how fields are organized by the selected formatting option ("output template") in the 'Output style' text area for the step '4. Choose a style for output references'. For the output template, "<b>!FAUTH</b>", "<b>!FYEAR</b>", "<b>!FTITLE</b>", etc. are used as field names. For the 'Delimiter' option, "<b>F1</b>", "<b>F2</b>", "<b>F3</b>", etc. can also be used as field names (see the '<a href="#delimit">f. Delimiter designation option</a>' section for details). These field names are replaced with corresponding pieces of informaiton for each article for output.<br>The output template is editable. It is therefore possible to customize an output format even when a specific output format has been selected.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+======================================================================================
+<div id="ordering">
+<h2 style="margin-bottom:15px;margin-top:15px;">4. Output ordering option (--order, -o)</h2>
+<li style="margin-top:0px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Formatted references can be output in a certain order. Arguments for the output ordering options for the command-line version are:</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><b>'num', 'index', 'author', 'name', 'year', 'pm', 'title'</b></li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">The arguments '<b>num</b>' and '<b>index</b>' are equivalent to each other. When either of them is selected, the first digits in each reference is used to order them. These arguments would be useful when index numbers are present at begginings of references, for example.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">The arguments '<b>author</b>' and '<b>name</b>' are equivalent to each other, and order references using author names. The argument '<b>year</b>', '<b>pm</b>' or '<b>title</b>' orders references using publicaiton years, PubMed IDs or article titles, respectively.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">In either case, the ascending order is used by default. When the argument contains "=r" (e.g., when "-o author=r" is used), the descending order is used.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">Some of these ordering methods are not supported by the GUI version of Cafebr.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">For both the command-line version and GUI version of Cafebr, references can be ordered as they appear in a manuscript. On the command-line version, manuscript can be loaded if a name (or path) of a manuscript file (in a plain text format) is provided as the argument for the ordering (-o) option. On the GUI version, a manuscript input area becomes visible when the radio 'As in a manuscript' is checked.</li>
+<li style="margin-top:10px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;">When manuscript texts are provided, word characters ([A-Za-z] in regular expression) followed by four digits starting with either 1 or 2 in either '()' or '[]' are regarded as potential citations. The word characters and the four digits are used as author names and as publication years, respectively, to search input references for the references with specific combinations of author names and publication years for each citation. If such a combination correspond to two or more references, the command-line version asks which is relevant to the citation of interest, whereas the GUI version regards all of them as relevant and proceeds. If no potential relevant reference is found, the command-line version asks whether PubMed searching should be performed, whereas the GUI version ignores corresponding combination of authors and publication years.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+======================================================================================
+<div id="examples">
+<h2 style="margin-bottom:15px;margin-top:15px;">5. Examples of use</h2>
+<li style="margin-top:0px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">Below are some examples of (tricky) use of Cafebr.</li>
+<li style="margin-top:10px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;"><b>i. Getting articles either using PubMed or from your own database, and outputting them in a formatted style</b></li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">Select the '<a href="#browse">DB browsing' option and add your Cafebr database file</a>. Alternatively, select the '<a href="#search">PubMed searhing' option</a>, input keywords and click 'View in Cafebr' (either for up to 20 records or > 20 records). Extracted fields should be automatically displayed as a table for the step '3. Choose references for formatted output'. In this table, each row should contain each article information. Click each row to select/unselect necessary article inforation, and click the 'Add selected references to output' button to output them in a formatted style. Formats can be changed by the step '<a href="#fldfmt">4. Choose a style for output references</a>'. Results will be then displayed as texts and HTML for the step '6. Review and edit formatted references'.</li>
+<li style="margin-top:10px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;"><b>ii. Changing styles of a preexisting reference list</b></li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">It should be sometimes necessary to output the same reference list in a different format. The '<a href="#delimit">Delimiter' option</a> may work in this case. Select this option, add a reference list, and indicate delimiters. Delimited records and fields are then displayed as a table for the step '3. Choose references for formatted output'. The records and fields can be reorganized using options in the steps '<a href="#fldfmt">4. Choose a style for output references</a>' and '<a href="#ordering">5. Choose how to order output references</a>'. These options may also be useful to find formatting errors in a reference list in advance of submitting it as a part of a manuscript.</li>
+<li style="margin-top:10px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;"><b>iii. Customizing output formats</b></li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">On the GUI version of Cafebr, output references are all based on the output template (what is written in the 'Output style' text area for the step '4. Choose a style for output references', see the '<a href="#fldfmt">3. Field formatting option</a>' section).</li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">For example, the preset format 'NPG' uses the output template "<b>!FAUTH. !FTITLE. &lt;i&gt;!FJOURNAL&lt;/i&gt; &lt;b&gt;!FVOL&lt;/b&gt;, !FPAGE (!FYEAR).</b>" to output journal names and volumes as italic and bold styles, respectively, but such italic and bold styles are not applied if the output template has been changed to "<b>!FAUTH. !FTITLE. !FJOURNAL !FVOL, !FPAGE (!FYEAR).</b>" (i.e., if the HTML tags have been removed).</li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">On the command-line version of Cafebr, the output template is used only when the <a href="#delimit">'Delimiter (--delimit, -d)' option</a> has been selected. For more flexible and/or precise formatting, open the source file on a text editor, designate an output format using "<b>$myownfmt</b>", save it, and run it with either the "<b>-f custom</b>" option or "<b>-f own</b>". For $myownfmt, <b>$author, $title, $year, $journal, $volume, $issue, $pages, $doi, $pmid, $pmcid, $abstract, $attribute, etc.</b> can be used. For example, '$myownfmt=$author."|".$title."|".$year."|".$journal' will output authors, article titles, publication years and journal names in the pipe (|)-delimited form. Please see the subroutine "formatting" for more examples of output formats.</li>
+<li style="margin-top:10px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;"><b>iv. Completing citations in a manuscript</b></li>
+<li style="margin-top:5px;margin-left:41px;font-size:110%;list-style-type:none;line-height:1.4;">The ordering option "-o [a manuscript file (path)]" or "As in a manuscript" returns a warning message if input references have no reference relevant to a certain citation in a manuscript. Cafebr may therefore be useful to find "missing" references.<br>Possible citations extracted by Cafebr from a manuscript are letters with at least one word character followed by four digits starting with either '1' or '2' in either '()' or '[]'. Parts needing any references in a manuscript can therefore be tentatively marked by a pattern such as 'R 1111', and later be revised and modified on Cafebr.</li>
+<li style="margin-bottom:10px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">Back to Contents</a>></li>
+</div>
+======================================================================================
+<div id="guihelps">
+<h2 style="margin-bottom:15px;margin-top:15px;">6. Point-by-point helps for the GUI version</h2>
+<div id="step1">
+<li style="margin-top:0px;margin-left:25px;font-size:125%;list-style-type:none;line-height:1.4;"><b>How to collect and/or handle input references</b></li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The 'DB browsing' option expects the text area for the step "2. Give and edit input references" to have input references in the following format:<br><b>Authors</b> [tab] <b>Article Title</b> [tab] <b>Publication Year</b> [tab] <b>Journal</b> [tab] <b>Volume</b> [tab] <b>Issue</b> [tab] <b>Pages</b> [tab] <b>PubMed ID (PMID)</b> [tab] <b>PubMed Central ID (PMCID)</b> [tab] <b>DOI</b> [tab] <b>Attributes</b> [tab] <b>Author Information</b><br>These are then displayed as a table for the step "3. Choose references for formatted output".</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The 'Delimiter' option is to split input references in the text area for the step 2 into records and fields using designated delimiters. Field delimiters are required, and can be designated by either<br>"<b>F1[delimiter 1]F2[delimiter 2]F3...</b>" or "<b>FS='delimiter 1, delimiter 2, delimiter 3, ...'</b>"<br>The record delimiter is carriage returns and line feeds ([\r\n]+) by default, and can be changed by "<b>RS='[record delimiter]'</b>" The defauld prefix 'F' for fields can be changed by "<b>PF='[prefix]'</b>". More details are available <a href="#delimit">here</a>.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The 'PubMed searching' option is to perform a keyword search on PubMed. If a 'View in Cafebr' button (either for 'up to 20 records' or '> 20 records') is clicked, results will be handled as when the 'DB browsing option' is selected.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The 'PubMed XML correction' option and the 'PubMed abstract correction' options are to extract information from the PubMed search results in the XML format and the abstract (text) format. The extracted information is then handled as when the 'DB browsing' option is selected.</li>
+<li style="margin-bottom:8px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">See Contents</a>></li>
+</div>
+<span style="margin-left:25px;">-------------------------------------------------------------------------------</span>
+<div id="step2">
+<li style="margin-top:0px;margin-left:25px;font-size:125%;list-style-type:none;line-height:1.4;"><b>Input references</b></li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">Input references can be provided by either designating a file or direct typing. When 'Add new input to old' is checked, new input references generated by designating a file, PubMed searching, or PubMed result text correction are added to the beggining of old input references.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">If the button 'Use the above for step 3' is clicked, references in the text area is displayed as a table for the step 3, according to the option and delimiters designated at the step 1.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">When words are present in the 'Keywords' box, only records with those words are displayed in the table for the step 3. Spaces between words in the 'Keywords' box are replaced with ".*?", and resulting characters are used to search input references (i.e., spaces are used for the AND search). Words in the 'Keywords' box are used as regular expression. Some characters need to be escaped by a backslash. Metacharacters can also be used. The OR search can be performed using a pipe ('|') as "OR".</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">Texts in the text area can be downloaded as a text file by clicking 'Download/Add to the database' button. When references are imported to the text area from a file and the 'DB browsing' option in the step 1 has been selected, the </li>
+<li style="margin-bottom:8px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">See Contents</a>></li>
+</div>
+<span style="margin-left:25px;">-------------------------------------------------------------------------------</span>
+<div id="step4">
+<li style="margin-top:0px;margin-left:25px;font-size:125%;list-style-type:none;line-height:1.4;"><b>Style for output</b></li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">Field names such as !FAUTH, !FYEAR, !FTITLE, F1, F2, F3, ... in the 'Output style' text area are replaced for each record (article) with pieces of information collected in the steps 1-3.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">All the specific field names are <b>!FAUTH</b> (for authors), <b>!FTITLE</b> (for article titles), <b>!FYEAR</b> (for publication years), <b>!FJOURNAL</b> (for journals), <b>!FVOL</b> (for volumes of journals), <b>!FISS</b> (for issues of journals), <b>!FPAGE</b> (for pages of journals), <b>!FDOI</b> (for DOIs), <b>!FPMID</b> (for PubMed IDs), <b>!FPMC</b> (for PubMed Central IDs), <b>!FABSTRACT</b> (for abstracts), and <b>!FATTR</b> (for attributes).</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">F1, F2, ... (i.e., patterns of prefix + digits) are for the 'Delimiter' option in the step 1. The prefix 'F' can be changed by typing "<b>PF='[prefix]'</b>" in the 'Output style' text area.</li>
+<li style="margin-bottom:8px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">See Contents</a>></li>
+</div>
+<span style="margin-left:25px;">-------------------------------------------------------------------------------</span>
+<div id="step5ms">
+<li style="margin-top:0px;margin-left:25px;font-size:125%;list-style-type:none;line-height:1.4;"><b>Input manuscript for the 'As in a manuscript' ordering option</b></li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The manuscript texts should be in a plain text format. Word characters ([A-Za-z]) and four digits starting with either 1 or 2 in either '()' or '[]' are regarded as an author name and a publication year, respectively. References with such an author and a publication year are then searched for, and used for output.</li>
+<li style="margin-top:8px;margin-left:25px;font-size:110%;list-style-type:none;line-height:1.4;">The input manuscript is copied in the 'Modified manuscript' text area, and the possible author names and publicaton years are replaced with sequential numbers in '[]'.</li>
+<li style="margin-bottom:8px;margin-top:15px;margin-left:30px;font-size:110%;list-style-type:none;line-height:1.4;"><<a href="#contents">See Contents</a>></li>
+</div>
+
+
+
+
+
+
+
+</body>
