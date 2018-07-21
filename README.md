@@ -8,7 +8,5 @@ is an HTML/JavaScript document, and this is also available at
 or
 #### http://studtsugama.s1006.xrea.com/cafebr/cafebrx.html
 (it may take ~20 sec to load the latter, please be patient)
-
-see
 ##### Cafebrman.html
-for how to use them.
+shows how to use them.
