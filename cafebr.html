@@ -11,15 +11,15 @@
 
 <img src="cblogo.png" style="float:left; width:80px; height: 100px; margin-right: 15px; margin-top: -15px;">
 <h1 style="line-height:1.2;margin-bottom:25px;">Cafebr<br> <span style="font-size: 75%;">-- Citation Amender/Formatter for Biological Research</span></h1>
-<span style="line-height:1.4;font-size:88%;">(c) 2018 Daisuke Tsugama<br>This program uses the PubMed search engine (https://www.ncbi.nlm.nih.gov/pubmed/),<br> managed by The United States National Library of Medicine (NLM) at the National Institutes of Health (NIH)</span><p style="margin-top:10px;margin-bottom:5px;">&lt;<a href="cafebr_gui.zip" download>Download a stand-alone version</a>&gt;&nbsp;&nbsp;&lt;<a href="cafebr_cui.zip" download>Download a command-line version</a>&gt;&nbsp;&nbsp;&lt;<a href="cafebrman.html">Help, Cafebrman</a>&gt;&nbsp;&nbsp;</p>=================================================================================
+<span style="line-height:1.4;font-size:88%;">(c) 2018 Daisuke Tsugama (<a href="https://opensource.org/licenses/MIT">MIT License</a> applies)<br>This program uses the PubMed search engine (https://www.ncbi.nlm.nih.gov/pubmed/),<br> managed by The United States National Library of Medicine (NLM) at the National Institutes of Health (NIH)</span><p style="margin-top:10px;margin-bottom:5px;">&lt;<a href="cafebr_gui.zip" download>Download a stand-alone version</a>&gt;&nbsp;&nbsp;&lt;<a href="cafebr_cui.zip" download>Download a command-line version</a>&gt;&nbsp;&nbsp;&lt;<a href="cafebrman.html">Help, Cafebrman</a>&gt;&nbsp;&nbsp;</p>=================================================================================
 
 
 <h4 style="margin-top:15px;margin-bottom:0px;">1. Choose how to collect and/or handle input references <a style="font-weight:normal" href="cafebrman.html#step1">(help)</a></h4>
 <form name="inputopt">
 <p style="margin-top:5px;line-height:1.6;margin-bottom:10px;">
-<input type="radio" name="modeopt" id="browseradio" checked="checked" onclick="moderesetting();document.getElementById('addtodbbtn').value='Download/Add to the database';">DB browsing&nbsp;
+<input type="radio" name="modeopt" id="searchradio" onclick="moderesetting(); document.getElementById('searchdiv').style.display = 'inline';"  checked="checked">PubMed searching&nbsp;
+<input type="radio" name="modeopt" id="browseradio" onclick="moderesetting();document.getElementById('addtodbbtn').value='Download/Add to the database';">DB browsing&nbsp;
 <input type="radio" name="modeopt" id="delimitradio" onclick="moderesetting();predelimiting()">Delimiter&nbsp;
-<input type="radio" name="modeopt" id="searchradio" onclick="moderesetting(); document.getElementById('searchdiv').style.display = 'inline';">PubMed searching&nbsp;
 <br>
 <input type="radio" name="modeopt" id="xmlcorrradio" onclick="moderesetting();document.getElementById('corrdiv').style.display='inline';">PubMed XML correction&nbsp;
 <input type="radio" name="modeopt" id="abscorrradio" onclick="moderesetting();document.getElementById('corrdiv').style.display='inline';">PubMed abstract correction&nbsp;
@@ -41,7 +41,7 @@
 
 
 
-<div id="searchdiv" style="display:none;margin-top:0px;">
+<div id="searchdiv" style="margin-top:0px;">
 <span>Keywords:&nbsp;</span><br>
 <form name="pmskform" action="http://lab.agr.hokudai.ac.jp/botagr/sakusei/cafebr.cgi" target="_blank" method="post">
 <input type="text" style="display:none;">
