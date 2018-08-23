@@ -1,5 +1,12 @@
 ---
 title: 'Cafebr: Citation Amender/Formatter for Biological Research'
+tags:
+  - Perl
+  - HTML/JavaScript
+  - Biology
+  - PubMed
+  - Manuscript
+  - Reference management
 author:
  - name: Daisuke Tsugama
    orcid: 0000-0002-4946-678X
