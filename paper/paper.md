@@ -23,6 +23,6 @@ The extracted pieces of information are organized to generate a final list, achi
 ![Example of use of the PubMed searching option.](PM_search.PNG)
 
 ## Example of use of the "Delimiter" option
-![Example of use of the Delimiter searching option.](PM_search.PNG)
+![Example of use of the Delimiter searching option.](Delimiter.PNG)
 
 # References
