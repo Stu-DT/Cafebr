@@ -15,6 +15,7 @@ affiliations:
  - name: Research Faculty of Agriculture, Hokkaido University
    index: 1
 date: 23 August 2018
+bibliography: paper.bib
 ---
 
 
