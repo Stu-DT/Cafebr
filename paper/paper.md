@@ -7,11 +7,11 @@ tags:
   - PubMed
   - Manuscript
   - Reference management
-author:
+authors:
  - name: Daisuke Tsugama
    orcid: 0000-0002-4946-678X
    affiliation: "1"
-affiliation:
+affiliations:
  - name: Research Faculty of Agriculture, Hokkaido University
    index: 1
 date: 23 August 2018
