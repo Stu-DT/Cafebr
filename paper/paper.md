@@ -27,8 +27,10 @@ To achieve the above step 1 (i.e., for articles), Cafebr can search the MEDLINE 
 
 The extracted pieces of information are organized to generate a final list, achieving the above steps 2 and 3. For this, a template for field arrangement and an order of references can be designated. Some of the preset templates add HTML tags to specific fields to display them in the italic, bold, or superscript style on a web browser. Microsoft Word, which would be usually used for the final manual formatting of a manuscript, can maintain such a style if such words are copied and pasted with the "Match Destination Formatting" option. The number of preset templates for field arrangement is only five thus far (will be increased in the future). However, it is possible to edit them directly on the interface of Cafebr, and to get flexible results. As an ordering option, "As in manuscript" is available. This option outputs references as they are cited in the manuscript, and converts citations such as "(Tsugama et al., 2018)", "(Mike et al., 2014)" to "[Ref1]", "[Ref2]". All of these functions except the PubMed search can be locally executed with the single file cafebr.html. Its online version can execute all of the functions with the aid of a CGI program (cafebr.cgi), and is available at either http://stdtgm.itigo.jp/cafebr/cafebr.html [@cbonline_main] or http://studtsugama.s1006.xrea.com/cafebr/cafebr.xhtm [@cbonline_backup].
 
+### Figure 1. Example of use of the PubMed searching option.
 ![Example of use of the PubMed searching option.](PM_search.PNG)
 
+### Figure 2. Example of use of the Delimiter searching option.
 ![Example of use of the Delimiter searching option.](Delimiter.PNG)
 
 # References
