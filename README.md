@@ -1,4 +1,4 @@
-## Cafebr (Citation Amender/Formatter for Biological Research)
+## Cafebr (Citation Amender/Formatter for Biological Research) [![DOI](https://zenodo.org/badge/141783814.svg)](https://zenodo.org/badge/latestdoi/141783814)
 is a set of programs that may help generate a reference list for a manuscript for biological research.
 #### cafebr.pl
 is a Perl script, and
